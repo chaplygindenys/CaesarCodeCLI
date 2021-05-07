@@ -1,0 +1,15 @@
+{
+  "name": "code-caesar-cli",
+  "version": "1.0.0",
+  "description": "caesar cipher CLI, decoder, encoder.",
+  "preferGlobal": true,
+  "bin": "./app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Denys Chaplygin",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "2.20.3"
+  }
+}
