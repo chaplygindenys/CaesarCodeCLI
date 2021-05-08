@@ -1,8 +1,9 @@
 const { Command } = require('commander');
 const module_validationOptions = require('./modules/validationOptions.js');
+const module_encodeDecodeText = require('./modules/encodeDecodeText.js');
 const program = new Command();
+const {encodeDecodeText} = module_encodeDecodeText;
 const {validationOptions} = module_validationOptions;
-let shift = 0;
 program
     .version('0.0.1')
     .description('CaesarCode');
@@ -21,7 +22,9 @@ const validationError = validationOptions(options.shift, options.action);
 if (validationError!=='ok'){
     console.error(validationError);
     process.exit(1);
-}
+}else{
+    console.log(validationError);
+    encodeDecodeText(options)}
 
 
 
