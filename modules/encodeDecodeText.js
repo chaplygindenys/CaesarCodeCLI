@@ -6,7 +6,9 @@ const module_encodeFile = require('./encodeFile.js');
 const { encodeFile} = module_encodeFile;
 
 const encodeDecodeText=(options)=>{
-    const shift= options.shift;
+   let shift= parseInt(options.shift , 10);
+    if (options.action === 'decode') shift = shift * (-1) ;
+    console.log(shift);
     const inputFile = options.input;
     const outputFile = options.output;
 
@@ -22,7 +24,7 @@ const encodeDecodeText=(options)=>{
         }
 
         try {
-            encodeFile(inputFile, fd, outputFile);
+            encodeFile(inputFile, fd, outputFile,shift);
         } finally {
             fs.close(fd, (err) => {
                 if (err) throw err;

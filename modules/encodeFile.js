@@ -1,46 +1,19 @@
 const fs = require('fs');
-const encodeFile=(inputFile, fileData, outputFile)=> {
+const {Transform} = require('stream');
+const module_caesarEncode = require('./caesarEncode.js');
+const {caesarEncode} = module_caesarEncode;
 
-    fs.createReadStream(inputFile,{flags: 'r', bf: fileData, })
-    console.error(fileData);
-    console.error(outputFile);
-    // let caesarShift = function (str, amount) {
-    //     // Wrap the amount
-    //     if (amount < 0) {
-    //         return caesarShift(str, amount + 26);
-    //     }
-    //
-    //     // Make an output letiable
-    //     let output = "";
-    //
-    //     // Go through each character
-    //     for (let i = 0; i < str.length; i++) {
-    //         // Get the character we'll be appending
-    //         let c = str[i];
-    //
-    //         // If it's a letter...
-    //         if (c.match(/[a-z]/i)) {
-    //             // Get its code
-    //             let code = str.charCodeAt(i);
-    //
-    //             // Uppercase letters
-    //             if (code >= 65 && code <= 90) {
-    //                 c = String.fromCharCode(((code - 65 + amount) % 26) + 65);
-    //             }
-    //
-    //             // Lowercase letters
-    //             else if (code >= 97 && code <= 122) {
-    //                 c = String.fromCharCode(((code - 97 + amount) % 26) + 97);
-    //             }
-    //         }
-    //
-    //         // Append
-    //         output += c;
-    //     }
-    //
-    //     // All done!
-    //     return output;
-    // };
+const encodeFile = (inputFile, fileData, outputFile,shift) => {
+    const encodeStream = new Transform({
+        transform(chunk, encoding, callback) {
+            let str = chunk.toString();
+            this.push(caesarEncode(str, shift));
+            callback();
+        }
+    });
+    fs.createReadStream(
+        inputFile
+    ).pipe(encodeStream).pipe(fs.createWriteStream(outputFile));
 
 
 };
