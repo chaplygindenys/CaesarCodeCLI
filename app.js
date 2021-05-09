@@ -16,6 +16,8 @@ program
 
 program.parse(process.argv);
 const options = program.opts();
+console.log('You type this params:\n')
+console.log(options);
 const validationError = validationOptions(options.shift, options.action);
 if (validationError!=='ok'){
     console.error(validationError);

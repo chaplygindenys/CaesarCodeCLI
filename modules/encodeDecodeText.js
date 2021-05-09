@@ -10,7 +10,6 @@ const encodeDecodeText=(options)=>{
     let outputFile = "/";
    let shift= parseInt(options.shift , 10);
     if (options.action === 'decode') shift = shift * (-1) ;
-    console.log(shift);
 
     if(options.input !== undefined){
          inputFile = options.input}else{inputFile = "./undefined"}
@@ -22,6 +21,8 @@ const encodeDecodeText=(options)=>{
     fs.open(inputFile, 'r', (err, fd) =>{
         if (err) {
             if (err.code === 'ENOENT') {
+                console.log('Input file: Does not exist or isn\'t .txt');
+                console.log('Input some-text:');
                 handInput(shift, outputFile);
                 return;
             }
@@ -30,6 +31,7 @@ const encodeDecodeText=(options)=>{
         }
 
         try {
+            console.log('Input file: ok');
             encodeFile(inputFile, fd, outputFile,shift);
         } finally {
             fs.close(fd, (err) => {
