@@ -1,20 +1,19 @@
 const fs = require('fs');
-const {Transform} = require('stream');
-const module_caesarEncode = require('./caesarEncode.js');
-const {caesarEncode} = module_caesarEncode;
+const { Writable } = require('stream');
+const  module_toConsoleOrFile = require('./toConsoleOrFile.js');
+const {toConsoleOrFile} = module_toConsoleOrFile;
 
 const encodeFile = (inputFile, fileData, outputFile,shift) => {
-    const encodeStream = new Transform({
-        transform(chunk, encoding, callback) {
-            let str = chunk.toString();
-            this.push(caesarEncode(str, shift));
+
+    const outStream = new Writable({
+        write(chunk, encoding, callback) {
+            toConsoleOrFile(chunk, encoding, callback, shift, outputFile);
             callback();
         }
+
     });
-    fs.createReadStream(
-        inputFile
-    ).pipe(encodeStream).pipe(fs.createWriteStream(outputFile));
+    fs.createReadStream(inputFile).pipe(outStream);
 
-
+ console.log('file');
 };
 module.exports.encodeFile = encodeFile;
