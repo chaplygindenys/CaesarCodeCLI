@@ -15,9 +15,7 @@ program
 
 
 program.parse(process.argv);
-// console.log({process});
 const options = program.opts();
-console.log(options);
 const validationError = validationOptions(options.shift, options.action);
 if (validationError!=='ok'){
     console.error(validationError);

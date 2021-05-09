@@ -1,5 +1,5 @@
 {
-  "name": "code-caesar-cli",
+  "name": "CaesarCodeCLI",
   "version": "1.0.0",
   "description": "caesar cipher CLI, decoder, encoder.",
   "preferGlobal": true,

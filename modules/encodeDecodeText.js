@@ -21,9 +21,7 @@ const encodeDecodeText=(options)=>{
 
     fs.open(inputFile, 'r', (err, fd) =>{
         if (err) {
-            console.log('heand')
             if (err.code === 'ENOENT') {
-                console.log('heand')
                 handInput(shift, outputFile);
                 return;
             }
@@ -32,7 +30,6 @@ const encodeDecodeText=(options)=>{
         }
 
         try {
-            console.log('file')
             encodeFile(inputFile, fd, outputFile,shift);
         } finally {
             fs.close(fd, (err) => {
